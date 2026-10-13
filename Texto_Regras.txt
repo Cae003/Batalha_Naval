@@ -1,1 +1,41 @@
-Aopa, teste bacanudo!
+# ⚓ Batalha Naval
+
+O jogo começa após os jogadores posicionarem suas embarcações. Cada jogador possui uma frota composta por **9 embarcações**:
+
+- **2 Porta-Aviões** — ocupam 4 casas cada;
+- **2 Encouraçados** — ocupam 3 casas cada;
+- **2 Rebocadores** — ocupam 2 casas cada;
+- **3 Submarinos** — ocupam 1 casa cada.
+
+Durante a preparação, cada jogador poderá escolher entre **posicionar suas embarcações manualmente** ou deixar que o sistema faça um **posicionamento automático e aleatório**.
+
+Em partidas contra a **CPU**, as embarcações dela serão posicionadas automaticamente e suas posições permanecerão ocultas para o jogador.
+
+Após o posicionamento de todas as embarcações, a batalha começa!
+
+## 🎯 Objetivo
+
+O objetivo é **afundar todas as 9 embarcações do adversário antes que ele consiga afundar as suas**.
+
+A partida é dividida em **turnos**. Em cada turno, o jogador da vez escolhe uma coordenada do tabuleiro inimigo para realizar um disparo.
+
+## 💥 Ataques
+
+Após o jogador informar uma coordenada, o jogo verifica o que existe naquela posição.
+
+- Se não houver nenhuma embarcação na coordenada escolhida, o jogo informa **"Água!"**, indicando que o tiro errou.
+- Se houver uma embarcação na coordenada escolhida, o jogo informa **"Fogo! [Nome da embarcação]!"**, revelando qual embarcação foi atingida.
+
+As embarcações **não são afundadas ao serem atingidas apenas uma vez**. Para afundar uma embarcação, é necessário acertar **todas as casas ocupadas por ela**.
+
+Por exemplo, um Porta-Aviões ocupa 4 casas. Portanto, suas 4 posições precisam ser atingidas para que ele seja considerado afundado.
+
+A partida continua alternando os turnos até que um dos jogadores tenha **todas as suas embarcações afundadas**.
+
+## 🏆 Fim da partida
+
+Quando todas as embarcações de um jogador forem afundadas, o jogo informa automaticamente o **vencedor da partida**.
+
+Após o fim da partida, o jogador poderá escolher entre **sair do jogo ou voltar ao menu para iniciar uma nova partida**.
+
+Pois então, divirtam-se, marujos! ⚓ ;)
