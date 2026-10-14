@@ -1,26 +1,5 @@
 import os, random
 
-'''def menu_principal():
-    titulo = "BATALHA NAVAL"
-    print("="*50)
-    print(f"\n{titulo:^50}\n")
-
-    while True:
-        print("="*50)
-        print("\n1 - Jogar\n2 - Regras\n3 - Sair\n")
-        opcao =  input("Digite o número da opção desejada: ")
-
-        if opcao == '1':
-            return opcao
-        elif opcao == '2':
-            return opcao
-        elif opcao == '3':
-            print("Obrigado por Jogar!! ;)\n")
-            exit()
-        else:
-            print("Opção Inexistente! Tente Novamente!\n")
-            continue'''
-
 def menu_modo_jogo():
     while True:
         print()
@@ -57,9 +36,14 @@ def menu_posicionar():
             print("Opção Inexistente! Tente Novamente!\n")
             continue
 
+def monta_tabuleiros():
+    ...
+
+def partida(is_cpu):
+    ...
+
 
 if __name__ == "__main__":
-    # opcao = menu_principal()
     titulo = "BATALHA NAVAL"
     base_dir = os.path.dirname(__file__)
     texto_regras_path = os.path.join(base_dir, "Texto_Regras.txt")
@@ -81,8 +65,21 @@ if __name__ == "__main__":
             modo_posicionamento = menu_posicionar()
             if modo_posicionamento == 3:
                 continue
-            print("Jogo")
-            break
+
+            if modo_selecionado == 1 and modo_posicionamento == 1:
+                #Caso em que vai direto pro jogo de player x player
+                break
+            elif modo_selecionado == 1 and modo_posicionamento == 2:
+                #Caso em que abre menu de posicionamento para os 2 players
+                break
+            elif modo_selecionado == 2 and modo_posicionamento == 1:
+                #Caso em que vai direto pro jogo de player x CPU
+                break
+            elif modo_selecionado == 2 and modo_posicionamento == 2:
+                #Caso em que abre menu de posicionamento para o player e automatico pra CPU
+                break
+            else:
+                print("Erro! Opção não prevista selecionada!")
         elif opcao == '2':
             print(f"\n{texto_regras}\n")
         elif opcao == '3':
