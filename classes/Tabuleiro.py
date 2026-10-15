@@ -60,7 +60,6 @@ class Tabuleiro:
         for c in coordenadas:
             linha = c[0].upper()
             if linha not in linhas_validas:
-                print(linha)
                 return f"A linha '{linha}' é inexistente! Tente novamente!"
             coluna = c[1:]
             if coluna not in colunas_validas:
@@ -91,8 +90,18 @@ class Tabuleiro:
         return f"Embarcação colocada com sucesso!"
 
     def receber_tiro(self, ataque):
+        linhas_validas = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
+        colunas_validas = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
         linha = ataque[0].upper()
         coluna = ataque[1:]
+
+        # Verifica se são aceitas nas regras de limites
+        if linha not in linhas_validas:
+            return f"A linha '{linha}' é inexistente! Tente novamente!"
+        if coluna not in colunas_validas:
+            return f"A coluna '{coluna}' é inexistente! Tente novamente!"
+
+        # Após verificar que está dentro do tabuleiro realiza o ataque  
         if self.tab_mostrado[linha][coluna] != "-":
             return "Posição já alvejada! Escolha outra!"
         elif self.tab_jogador[linha][coluna] == "~":
@@ -100,23 +109,32 @@ class Tabuleiro:
             return "Água!"
         else:
             self.tab_mostrado[linha][coluna] = "X"
-            self.tab_jogador[linha][coluna] = "F"
             if self.tab_jogador[linha][coluna] == "A":
+                self.tab_jogador[linha][coluna] = "F"
                 return "Fogo! Porta-Aviões!"
             elif self.tab_jogador[linha][coluna] == "E":
+                self.tab_jogador[linha][coluna] = "F"
                 return "Fogo! Encouraçado!"
             elif self.tab_jogador[linha][coluna] == "R":
+                self.tab_jogador[linha][coluna] = "F"
                 return "Fogo! Rebocador!"
             elif self.tab_jogador[linha][coluna] == "S":
+                self.tab_jogador[linha][coluna] = "F"
                 return "Fogo! Submarino!"
 
 
 if __name__ == "__main__":
     tab1 = Tabuleiro()
-    tab1.mostrar_tabJ()
     resposta = tab1.posicionar_navio(["C3", "D3", "e3", "F3"])
     print(resposta)
-    tab1.mostrar_tabJ()
-    tab1.tab_mostrado["C"]["3"] = "X"
-    tab1.tab_mostrado["C"]["4"] = "~"
-    tab1.mostrar_tabM()
+    # tab1.tab_mostrado["C"]["3"] = "X"
+    # tab1.tab_mostrado["C"]["4"] = "~"
+    while True:
+        print("Digite 's' para sair")
+        ataque = input("Digite as coordenadas de ataque: ")
+        if ataque == "s" or ataque == "S":
+            break
+        resposta = tab1.receber_tiro(ataque)
+        print(resposta)
+        tab1.mostrar_tabJ()
+        tab1.mostrar_tabM()
