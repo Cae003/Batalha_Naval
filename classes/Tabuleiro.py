@@ -92,35 +92,35 @@ class Tabuleiro:
     def receber_tiro(self, ataque):
         linhas_validas = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
         colunas_validas = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
-        linha = ataque[0].upper()
+        linha = ataque[0]
         coluna = ataque[1:]
 
         # Verifica se são aceitas nas regras de limites
         if linha not in linhas_validas:
-            return f"A linha '{linha}' é inexistente! Tente novamente!"
+            return f"A linha '{linha}' é inexistente! Tente novamente!", False
         if coluna not in colunas_validas:
-            return f"A coluna '{coluna}' é inexistente! Tente novamente!"
+            return f"A coluna '{coluna}' é inexistente! Tente novamente!", False
 
         # Após verificar que está dentro do tabuleiro realiza o ataque  
         if self.tab_mostrado[linha][coluna] != "-":
-            return "Posição já alvejada! Escolha outra!"
+            return "Posição já alvejada! Escolha outra!", False
         elif self.tab_jogador[linha][coluna] == "~":
             self.tab_mostrado[linha][coluna] = "~"
-            return "Água!"
+            return "Água!", True
         else:
             self.tab_mostrado[linha][coluna] = "X"
             if self.tab_jogador[linha][coluna] == "A":
                 self.tab_jogador[linha][coluna] = "F"
-                return "Fogo! Porta-Aviões!"
+                return "Fogo! Porta-Aviões!", True
             elif self.tab_jogador[linha][coluna] == "E":
                 self.tab_jogador[linha][coluna] = "F"
-                return "Fogo! Encouraçado!"
+                return "Fogo! Encouraçado!", True
             elif self.tab_jogador[linha][coluna] == "R":
                 self.tab_jogador[linha][coluna] = "F"
-                return "Fogo! Rebocador!"
+                return "Fogo! Rebocador!", True
             elif self.tab_jogador[linha][coluna] == "S":
                 self.tab_jogador[linha][coluna] = "F"
-                return "Fogo! Submarino!"
+                return "Fogo! Submarino!", True
 
 
 if __name__ == "__main__":
