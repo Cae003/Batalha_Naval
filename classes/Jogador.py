@@ -1,3 +1,5 @@
+import random
+
 class Jogador:
     def __init__(self, id_jogador, meu_tab, frota = []):
         self.id_jogador = id_jogador
@@ -76,9 +78,29 @@ class Cpu(Jogador):
         self.id_cpu = id_cpu
 
     def ataque_cpu(self, tab_inimigo):
-        ...
+        while True:
+            letras = 'ABCDEFGHIJ'
+            letra_sorteada = random.choice(letras)
+            numero_sorteado = random.randint(1, 10)
+            ataque = letra_sorteada + str(numero_sorteado)
+
+            resposta, tiro_valido = tab_inimigo.receber_tiro(ataque)
+
+            if not tiro_valido:
+                continue
+
+            for embarc in self.frota:
+                if ataque in embarc.partes_inteiras:
+                    embarc.recebe_dano(ataque)
+
+            tab_inimigo.mostrar_tabM()
+
+            # Guarda o resultado do tiro válido e sai do while
+            resultado = {ataque: resposta}
+            self.ataques.appende(resultado)
+            break
 
 
 if __name__ == "__main__":
-    coordenada = input("Digite a coordenada: ").upper()
-    print(coordenada)
+    '''coordenada = input("Digite a coordenada: ").upper()
+    print(coordenada)'''
