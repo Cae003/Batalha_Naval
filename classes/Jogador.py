@@ -25,10 +25,10 @@ class Jogador:
                 cont_S += 1
 
         print(f"O jogador {self.id_jogador} ainda possui:")
-        print(f"- {cont_PA} Porta-Aviões")
-        print(f"- {cont_E} Encouraçados")
-        print(f"- {cont_R} Rebocadores")
-        print(f"- {cont_S} Submarinos")
+        print(f"- {cont_PA} Porta-Aviões - 4 casas")
+        print(f"- {cont_E} Encouraçado's - 3 casas")
+        print(f"- {cont_R} Rebocador'es - 2 casas")
+        print(f"- {cont_S} Submarino's - 1 casa")
         return False
 
 class Player(Jogador):

@@ -273,6 +273,7 @@ def partida(j1, j2, is_cpu):
         while True:
             #Turno Jogador 1
             print("\nJogador 1 🕹️\n")
+            # tab2.mostrar_tabJ()
             tab2.mostrar_tabM()
             j1.ataque_player(j2)
             if j1.verificar_derrota():
@@ -285,6 +286,7 @@ def partida(j1, j2, is_cpu):
 
             #Turno Jogador 2
             print("\nJogador 2 🕹️\n")
+            # tab1.mostrar_tabJ()
             tab1.mostrar_tabM()
             j2.ataque_player(j1)
             if j2.verificar_derrota():
