@@ -3,7 +3,7 @@ import random
 class Jogador:
     def __init__(self, id_jogador, meu_tab, frota = []):
         self.id_jogador = id_jogador
-        self.meu_tabuleiro = meu_tab
+        self.meu_tab = meu_tab
         self.ataques = []
         self.frota = frota
         self.frota_afundada = []
@@ -17,26 +17,25 @@ class Jogador:
         for e in self.frota:
             if e.tipo == "Porta-Aviões":
                 cont_PA += 1
-            elif e.tipo == "Encouraçados":
-                count_E += 1
-            elif e.tipo == "Rebocadores":
-                count_R += 1
-            elif e.tipo == "Submarinos":
-                count_S += 1
+            elif e.tipo == "Encouraçado":
+                cont_E += 1
+            elif e.tipo == "Rebocador":
+                cont_R += 1
+            elif e.tipo == "Submarino":
+                cont_S += 1
 
         print(f"O jogador {self.id_jogador} ainda possui:")
         print(f"- {cont_PA} Porta-Aviões")
-        print(f"- {count_E} Encouraçados")
-        print(f"- {count_R} Rebocadores")
-        print(f"- {count_S} Submarinos")
+        print(f"- {cont_E} Encouraçados")
+        print(f"- {cont_R} Rebocadores")
+        print(f"- {cont_S} Submarinos")
         return False
 
 class Player(Jogador):
-    def __init__(self, id_player, frota = []):
-        super().__init__(frota)
-        self.id_player = id_player
+    def __init__(self, id_jogador, meu_tab, frota = []):
+        super().__init__(id_jogador, meu_tab, frota)
 
-    def ataque_player(self, tab_inimigo):
+    def ataque_player(self, j_inimigo):
         while True:
             ataque = input("Digite as coordenadas de ataque: ").upper()
 
@@ -53,54 +52,74 @@ class Player(Jogador):
                 print("Depois da letra devem existir apenas números!")
                 continue
 
-            resposta, tiro_valido = tab_inimigo.receber_tiro(ataque)
+            resposta, tiro_valido = j_inimigo.meu_tab.receber_tiro(ataque)
 
             if not tiro_valido:
                 print(resposta)
                 continue
 
-            for embarc in self.frota:
+            for embarc in j_inimigo.frota:
                 if ataque in embarc.partes_inteiras:
                     embarc.recebe_dano(ataque)
+                if embarc.esta_afundado():
+                    j_inimigo.frota.remove(embarc)
+                    j_inimigo.frota_afundada.append(embarc)
 
-            tab_inimigo.mostrar_tabM()
+            # tab_inimigo.mostrar_tabM()
             print(f"\n{resposta}\n")
 
             # Guarda o resultado do tiro válido e sai do while
             resultado = {ataque: resposta}
-            self.ataques.appende(resultado)
+            self.ataques.append(resultado)
             break
                     
 
 class Cpu(Jogador):
-    def __init__(self, id_cpu, frota = []):
-        super().__init__(frota)
-        self.id_cpu = id_cpu
+    def __init__(self, id_jogador, meu_tab, frota = []):
+        super().__init__(id_jogador, meu_tab, frota)
 
-    def ataque_cpu(self, tab_inimigo):
+    def ataque_cpu(self, j_inimigo):
         while True:
             letras = 'ABCDEFGHIJ'
             letra_sorteada = random.choice(letras)
             numero_sorteado = random.randint(1, 10)
             ataque = letra_sorteada + str(numero_sorteado)
 
-            resposta, tiro_valido = tab_inimigo.receber_tiro(ataque)
+            resposta, tiro_valido = j_inimigo.meu_tab.receber_tiro(ataque)
 
             if not tiro_valido:
                 continue
+            print(f"CPU atacou a {ataque}")
 
-            for embarc in self.frota:
+            for embarc in j_inimigo.frota:
                 if ataque in embarc.partes_inteiras:
                     embarc.recebe_dano(ataque)
+                if embarc.esta_afundado():
+                    j_inimigo.frota.remove(embarc)
+                    j_inimigo.frota_afundada.append(embarc)
 
-            tab_inimigo.mostrar_tabM()
+            j_inimigo.meu_tab.mostrar_tabM()
+            print(f"\n{resposta}\n")
 
             # Guarda o resultado do tiro válido e sai do while
             resultado = {ataque: resposta}
-            self.ataques.appende(resultado)
+            self.ataques.append(resultado)
             break
 
 
 if __name__ == "__main__":
     '''coordenada = input("Digite a coordenada: ").upper()
     print(coordenada)'''
+    t1 = Cpu(1, "tabela")
+    t2 = Cpu(1, "tabela")
+    t3 = Cpu(1, "tabela")
+    t4 = Cpu(1, "tabela")
+    teste = []
+    teste.append(t1)
+    teste.append(t2)
+    teste.append(t3)
+    teste.append(t4)
+    j1 = Cpu(1, "tabela", teste)
+
+    j1.frota.remove(t1)
+    print(j1.frota)

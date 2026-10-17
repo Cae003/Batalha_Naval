@@ -60,17 +60,17 @@ class Tabuleiro:
         for c in coordenadas:
             linha = c[0].upper()
             if linha not in linhas_validas:
-                return f"A linha '{linha}' é inexistente! Tente novamente!"
+                return f"A linha '{linha}' de '{c}' é inexistente! Tente novamente!", False
             coluna = c[1:]
             if coluna not in colunas_validas:
-                return f"A coluna '{coluna}' é inexistente! Tente novamente!"
+                return f"A coluna '{coluna}' de '{c}' é inexistente! Tente novamente!", False
             
         # Verifica se são aceitas nas regras de sobreposição
         for c in coordenadas:
             linha = c[0].upper()
             coluna = c[1:]
             if self.tab_jogador[linha][coluna] != "~":
-                return f"A posição que escolheu já possuí outra embarcação em '{c}'! Escolha outra posição!"
+                return f"A posição que escolheu já possuí outra embarcação em '{c}'! Escolha outra posição!", False
             
         # Após atender as 2 regras coloca a embarcação no tab_jogador
         tipo_embarcacao = "~"
@@ -87,7 +87,7 @@ class Tabuleiro:
             linha = c[0].upper()
             coluna = c[1:]
             self.tab_jogador[linha][coluna] = tipo_embarcacao
-        return f"Embarcação colocada com sucesso!"
+        return f"Embarcação colocada com sucesso!", True
 
     def receber_tiro(self, ataque):
         linhas_validas = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
